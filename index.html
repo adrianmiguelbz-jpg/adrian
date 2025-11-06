@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galería de Carros</title>
+  <style>
+    :root{
+      --accent:#1e90ff;
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#071023 0%, #0f1724 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:2rem;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      margin-bottom:2rem;
+    }
+    .logo{
+      width:64px;height:64px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#6dd3ff);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#02203a;
+      box-shadow:0 6px 18px rgba(30,144,255,0.12);
+      flex:0 0 64px;
+    }
+    h1{margin:0;font-size:1.6rem}
+    p.lead{margin:0;color:var(--muted)}
+
+    .controls{
+      margin-top:1rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap
+    }
+    .search{
+      background:transparent;border:1px solid rgba(255,255,255,0.08);padding:.6rem .8rem;border-radius:8px;color:inherit;
+      min-width:220px
+    }
+    .btn{background:var(--accent);border:none;padding:.6rem .9rem;border-radius:8px;color:#02203a;font-weight:600;cursor:pointer}
+
+    /* Grid */
+    .grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-top:1.75rem
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-height:320px
+    }
+    .card img{width:100%;height:170px;object-fit:cover;display:block}
+    .card-body{padding:1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+    .car-title{display:flex;align-items:center;justify-content:space-between}
+    .car-title h3{margin:0;font-size:1.05rem}
+    .specs{color:var(--muted);font-size:.9rem}
+    .price{font-weight:700;color:var(--accent)}
+    .tags{margin-top:auto;display:flex;gap:.5rem;flex-wrap:wrap}
+    .tag{padding:.3rem .55rem;background:rgba(255,255,255,0.02);border-radius:999px;font-size:.8rem}
+
+    footer{margin-top:2rem;color:var(--muted);text-align:center;font-size:.9rem}
+
+    @media (max-width:520px){
+      header{flex-direction:column;align-items:flex-start}
+      .logo{width:56px;height:56px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ADRIAN</div>
+    <div>
+      <h1>Agencia de carros</h1>
+      <p class="lead">Bienbenido a la mejor pagina web.</p>
+      <div class="controls">
+        <input class="search" placeholder="Buscar modelo, marca..." />
+        <button class="btn" onclick="filterAll()">Mostrar todos</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid" id="grid">
+
+      <!-- Card 1 -->
+      <article class="card" data-brand="ferrari" data-type="deportivo">
+        <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8f9e8d6f6f6e4d4f" alt="Ferrari rojo" />
+        <div class="card-body">
+          <div class="car-title">
+            <h3>Ferrari F8 Tributo</h3>
+            <div class="price">$275,000</div>
+          </div>
+          <div class="specs">V8 - 710 HP · 0-100 km/h en 2.9s</div>
+          <p class="specs">Un superdeportivo italiano con diseño aerodinámico y alto rendimiento.</p>
+          <div class="tags">
+            <span class="tag">Deportivo</span>
+            <span class="tag">2 plazas</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card" data-brand="tesla" data-type="electrico">
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3bea5d2b6d4b9f1c" alt="Tesla Model S" />
+        <div class="card-body">
+          <div class="car-title">
+            <h3>Tesla Model S</h3>
+            <div class="price">$89,990</div>
+          </div>
+          <div class="specs">Eléctrico - Autonomía ~652 km · 0-100 km/h en 2.1s (Plaid)</div>
+          <p class="specs">Sedán eléctrico de alta tecnología con piloto automático avanzado.</p>
+          <div class="tags">
+            <span class="tag">Eléctrico</span>
+            <span class="tag">Familia</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card" data-brand="bmw" data-type="sedan">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=0c0d3b2a2f9d7b1d" alt="BMW sedán" />
+        <div class="card-body">
+          <div class="car-title">
+            <h3>BMW Serie 5</h3>
+            <div class="price">$55,000</div>
+          </div>
+          <div class="specs">Turbo - Confort premium · Buen equilibrio entre lujo y desempeño</div>
+          <p class="specs">Ideal para ejecutivos que buscan comodidad con dinamismo en la conducción.</p>
+          <div class="tags">
+            <span class="tag">Sedán</span>
+            <span class="tag">Lujo</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card" data-brand="jeep" data-type="suv">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=6a7b2a3c1b5af7c2" alt="Jeep SUV" />
+        <div class="card-body">
+          <div class="car-title">
+            <h3>Jeep Wrangler</h3>
+            <div class="price">$39,000</div>
+          </div>
+          <div class="specs">4x4 · Robustez off-road · Capacidad de remolque</div>
+          <p class="specs">Vehículo todoterreno clásico, perfecto para aventuras al aire libre.</p>
+          <div class="tags">
+            <span class="tag">4x4</span>
+            <span class="tag">Aventura</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card" data-brand="toyota" data-type="hibrido">
+        <img src="https://images.unsplash.com/photo-1571607388023-4f0b1f4d2f8d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b2a3c4d5e6f7a8b" alt="Toyota híbrido" />
+        <div class="card-body">
+          <div class="car-title">
+            <h3>Toyota Prius</h3>
+            <div class="price">$28,500</div>
+          </div>
+          <div class="specs">Híbrido · Eficiencia de combustible · Tecnología confiable</div>
+          <p class="specs">Compacto y práctico, reconocido por su ahorro de combustible y durabilidad.</p>
+          <div class="tags">
+            <span class="tag">Híbrido</span>
+            <span class="tag">Eficiente</span>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer>
+    Proyecto de ejemplo — Abre este archivo en Visual Studio Code y guarda como <code>index.html</code>.
+  </footer>
+
+  <script>
+    // Pequeña funcionalidad: búsqueda simple por texto en títulos y filtros por marca (ejemplo)
+    const grid = document.getElementById('grid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+
+    document.querySelector('.search').addEventListener('input', (e)=>{
+      const q = e.target.value.trim().toLowerCase();
+      cards.forEach(card=>{
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const type = card.dataset.type || '';
+        const brand = card.dataset.brand || '';
+        const match = title.includes(q) || type.includes(q) || brand.includes(q);
+        card.style.display = match ? 'flex' : 'none';
+      })
+    })
+
+    function filterAll(){
+      cards.forEach(c=>c.style.display='flex');
+      document.querySelector('.search').value='';
+    }
+  </script>
+</body>
+</html>
